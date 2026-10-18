@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طيف اسناكس</title>
+    <style>
+        body {
+            font-family: 'Tahoma', Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 15px;
+            direction: rtl;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid #ff9800;
+        }
+        h1 {
+            color: #d32f2f;
+            margin: 5px 0;
+        }
+        .slogan {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .delivery-note {
+            color: #e65100;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .item-card {
+            background: #fff;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-info {
+            flex-grow: 1;
+        }
+        .item-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .item-desc {
+            font-size: 12px;
+            color: #777;
+            margin: 3px 0;
+        }
+        .item-price {
+            color: #388e3c;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .item-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .spicy-label {
+            font-size: 12px;
+            color: #d32f2f;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+        }
+        .form-section {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .summary-section {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-order {
+            display: block;
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn-order:active {
+            background-color: #128c7e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- تأكد أن صورة اللوقو مسماة logo.png ومحفوظة في نفس المجلد -->
+        <img src="logo.png" alt="لوقو طيف اسناكس" class="logo">
+        <h1>طيف اسناكس</h1>
+        <div class="slogan">منشه دايماً بتبسطك .</div>
+        <div class="delivery-note">📍 التوصيل داخل محلية كوستي فقط</div>
+    </header>
+
+    <div id="menu">
+        <!-- الأصناف -->
+        <div class="item-card" data-name="منشه : سندوتش بيرقر بطاطس" data-price="5000">
+            <div class="item-info">
+                <div class="item-name">منشه</div>
+                <div class="item-desc">سندوتش بيرقر بطاطس</div>
+                <div class="item-price">1500 ج.س</div>
+            </div>
+            <div class="item-controls">
+                <label class="spicy-label"><input type="checkbox" class="item-spicy"> سبايسي 🌶️</label>
+                <input type="number" class="item-qty" min="0" value="0" onchange="calculateTotal()">
+            </div>
+        </div>
+
+        <div class="item-card" data-name="منشه برو : سندوتش بيرقر بطاطس بالخضار" data-price="2000">
+            <div class="item-info">
+                <div class="item-name">منشه برو</div>
+                <div class="item-desc">سندوتش بيرقر بطاطس بالخضار</div>
+                <div class="item-price">2000 ج.س</div>
+            </div>
+            <div class="item-controls">
+                <label class="spicy-label"><input type="checkbox" class="item-spicy"> سبايسي 🌶️</label>
+                <input type="number" class="item-qty" min="0" value="0" onchange="calculateTotal()">
+            </div>
+        </div>
+
+        <div class="item-card" data-name="منشه برو ماكس : سندوتش بيرقر بطاطس بالخضار و الموزيرلا" data-price="2500">
+            <div class="item-info">
+                <div class="item-name">منشه برو ماكس</div>
+                <div class="item-desc">سندوتش بيرقر بطاطس بالخضار و الموزيرلا</div>
+                <div class="item-price">2500 ج.س</div>
+            </div>
+            <div class="item-controls">
+                <label class="spicy-label"><input type="checkbox" class="item-spicy"> سبايسي 🌶️</label>
+                <input type="number" class="item-qty" min="0" value="0" onchange="calculateTotal()">
+            </div>
+        </div>
+
+        <div class="item-card" data-name="منشه الترا : سندوتش بيرقر بالخضار و الموزيريلا مضاعف" data-price="3200">
+            <div class="item-info">
+                <div class="item-name">منشه الترا</div>
+                <div class="item-desc">سندوتش بيرقر بالخضار و الموزيريلا مضاعف</div>
+                <div class="item-price">3200 ج.س</div>
+            </div>
+            <div class="item-controls">
+                <label class="spicy-label"><input type="checkbox" class="item-spicy"> سبايسي 🌶️</label>
+                <input type="number" class="item-qty" min="0" value="0" onchange="calculateTotal()">
+            </div>
+        </div>
+
+        <div class="item-card" data-name="منشه اسناكس : شبس منشه بالخل و الملح" data-price="1000">
+            <div class="item-info">
+                <div class="item-name">منشه اسناكس</div>
+                <div class="item-desc">شبس منشه بالخل و الملح</div>
+                <div class="item-price">1000 ج.س</div>
+            </div>
+            <div class="item-controls">
+                <label class="spicy-label"><input type="checkbox" class="item-spicy"> سبايسي 🌶️</label>
+                <input type="number" class="item-qty" min="0" value="0" onchange="calculateTotal()">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-group">
+            <label for="customerName">الاسم:</label>
+            <input type="text" id="customerName" placeholder="اكتب اسمك هنا">
+        </div>
+        <div class="form-group">
+            <label for="customerAddress">العنوان (داخل كوستي):</label>
+            <input type="text" id="customerAddress" placeholder="الححي / الشارع / معالم واضحة">
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <div>سعر التوصيل الثابت: <span id="deliveryFeeDisplay">1000</span> ج.س</div>
+        <div style="margin-top: 5px; font-size: 18px; color: #d32f2f;">المجموع الكلي: <span id="grandTotal">0</span> ج.س</div>
+    </div>
+
+    <button class="btn-order" onclick="sendWhatsAppOrder()">اطلب عبر الواتساب 📱</button>
+
+    <script>
+        const deliveryFee = 1000;
+
+        function calculateTotal() {
+            let items = document.querySelectorAll('.item-card');
+            let subtotal = 0;
+
+            items.forEach(item => {
+                let qty = parseInt(item.querySelector('.item-qty').value) || 0;
+                let price = parseFloat(item.getAttribute('data-price'));
+                subtotal += qty * price;
+            });
+
+            let grandTotal = subtotal > 0 ? subtotal + deliveryFee : 0;
+            document.getElementById('grandTotal').innerText = grandTotal;
+        }
+
+        function sendWhatsAppOrder() {
+            let items = document.querySelectorAll('.item-card');
+            let orderDetails = "";
+            let subtotal = 0;
+
+            items.forEach(item => {
+                let qty = parseInt(item.querySelector('.item-qty').value) || 0;
+                if (qty > 0) {
+                    let name = item.getAttribute('data-name');
+                    let price = parseFloat(item.getAttribute('data-price'));
+                    let isSpicy = item.querySelector('.item-spicy').checked;
+                    let spicyText = isSpicy ? " (سبايسي 🌶️)" : "";
+                    
+                    let itemTotal = qty * price;
+                    subtotal += itemTotal;
+                    orderDetails += `- ${name} × ${qty}${spicyText} : ${itemTotal} ج.س\n`;
+                }
+            });
+
+            if (subtotal === 0) {
+                alert("الرجاء اختيار صنف واحد على الأقل للطلب!");
+                return;
+            }
+
+            let customerName = document.getElementById('customerName').value.trim();
+            let customerAddress = document.getElementById('customerAddress').value.trim();
+
+            if (!customerName || !customerAddress) {
+                alert("الرجاء كتابة الاسم وعنوان التوصيل بدقة!");
+                return;
+            }
+
+            let grandTotal = subtotal + deliveryFee;
+            let whatsappNumber = "249117399010";
+
+            let message = `مرحباً طيف اسناكس، أرغب في طلب الآتي:\n\n` +
+                          orderDetails +
+                          `-------------------\n` +
+                          `سعر التوصيل: ${deliveryFee} ج.س\n` +
+                          `الإجمالي الكلي: ${grandTotal} ج.س\n\n` +
+                          `الاسم: ${customerName}\n` +
+                          `العنوان: ${customerAddress}`;
+
+            let encodedMessage = encodeURIComponent(message);
+            let whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.location.href = whatsappUrl;
+        }
+    </script>
+</body>
+</html>
